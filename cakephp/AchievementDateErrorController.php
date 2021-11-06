@@ -1,5 +1,9 @@
 <?php
 
+//whereのnull指定
+//whereの条件を複数。orWhere
+//多次元配列のレスポンスを生成
+
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -52,10 +56,12 @@ class AchievementDateErrorController extends AppController
             $results = $this->TimeSiteBases
                 ->find()
                 ->where([
+                    // whereのnull指定
                     'achievement_construction_date IS NULL',
                     'place_id' => $place_id,
                     'deleted'  => 0,
                 ])
+                // whereの複数条件
                 ->orWhere([
                     'achievement_complete_date IS NULL',
                     'place_id' => $place_id,
