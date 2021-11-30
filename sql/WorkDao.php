@@ -59,7 +59,7 @@ class WorkDao implements Constants
             INNER JOIN places pl
               ON s.place_id = pl.id AND pl.deleted = 0
             WHERE
-              s.id = ?
+              s.id = ? --リクエストからきた変数を入れている。
               AND s.deleted = 0
             ;
             SQL;
