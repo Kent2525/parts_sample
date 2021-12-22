@@ -1,0 +1,36 @@
+# さくら独自のコード、こちらを記載しないとうまく作動しない。
+# BEGIN SAKURA Internet Inc.
+<IfModule mod_deflate.c>
+    SetOutputFilter DEFLATE
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/x-javascript application/javascript application/ecmascript
+</IfModule>
+<IfModule mod_expires.c>
+    ExpiresActive On
+    <FilesMatch "\.(css|js)$">
+        ExpiresDefault "access plus 1 week"
+    </FilesMatch>
+    <FilesMatch "\.(gif|jpe?g|png)$">
+        ExpiresDefault "access plus 1 month"
+    </FilesMatch>
+</IfModule>
+# END SAKURA Internet Inc.
+
+# WordPress独自のコード、こちらもないとWPが動かない。
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase / # サブディレクトリがある場合はこちらに記載 例：/home
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L] # サブディレクトリがある場合はこちらに記載　例：. /home.php
+</IfModule>
+# END WordPress
+
+AuthUserFile /home/genkansha/www/.htpasswd
+AuthGroupFile /dev/null
+AuthName "Please Enter your ID and Password"
+AuthType Basic
+Require valid-user
